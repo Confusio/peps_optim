@@ -1,0 +1,60 @@
+\documentclass[tikz]{standalone}
+\usetikzlibrary{positioning,calc,arrows.meta}
+\tikzset{
+  dbltensor/.style={draw,thick,minimum width=16pt,minimum height=16pt,rounded corners=2pt},
+  leg/.style={thick,-{Stealth[length=6pt,width=4pt]},shorten >=2pt,shorten <=2pt},
+  connect/.style={thick}
+}
+\begin{document}
+\begin{tikzpicture}[x=1.4cm,y=1.4cm]
+  %%% forward block
+  \node at (-2.2,1.4) {transfer\_forward};
+  \node[dbltensor] (AcL) at (-1,0.7) {$\overline{A}$};
+  \node[dbltensor] (AcR) at (1,0.7) {$\overline{A}$};
+  \node[dbltensor] (AL)  at (-1,-0.7) {$A$};
+  \node[dbltensor] (AR)  at (1,-0.7) {$A$};
+  \node[dbltensor] (X)   at (0,0) {$X$};
+
+  \draw[leg] (-1.8,0.9) node[left] {$c$} -- (AcL);
+  \draw[leg] (-1.8,-0.9) node[left] {$c'$} -- (AL);
+  \draw[leg] (AcR) -- node[above] {$d$} (1.8,0.9) node[right] {$d$};
+  \draw[leg] (AR)  -- node[below] {$d'$} (1.8,-0.9) node[right] {$d'$};
+
+  \draw[connect] (AcL) -- node[above] {$a$} (X);
+  \draw[connect] (X)   -- node[above] {$b$} (AcR);
+  \draw[connect] (AL)  -- node[below] {$a'$} (X);
+  \draw[connect] (X)   -- node[below] {$b'$} (AR);
+  \draw[connect] (AcL) -- node[left] {$s$} (AL);
+  \draw[connect] (AcR) -- node[right] {$s$} (AR);
+
+  \node at (0,-1.6) {$E(X) = \sum_{s} \overline{A}^{s} X A^{s}$};
+  \draw[dashed] (-1.9,-1.2) rectangle (1.9,1.2);
+  \node[anchor=south east] at (1.9,1.2) {$E$};
+
+  %%% backward block (reflected)
+  \begin{scope}[xshift=6cm]
+    \node at (-2.2,1.4) {transfer\_backward};
+    \node[dbltensor] (AcL2) at (-1,0.7) {$\overline{A}$};
+    \node[dbltensor] (AcR2) at (1,0.7) {$\overline{A}$};
+    \node[dbltensor] (AL2)  at (-1,-0.7) {$A$};
+    \node[dbltensor] (AR2)  at (1,-0.7) {$A$};
+    \node[dbltensor] (X2)   at (0,0) {$X$};
+
+    \draw[leg] (-1.8,0.9) node[left] {$a$} -- (AcL2);
+    \draw[leg] (-1.8,-0.9) node[left] {$a'$} -- (AL2);
+    \draw[leg] (AcR2) -- node[above] {$b$} (1.8,0.9) node[right] {$b$};
+    \draw[leg] (AR2)  -- node[below] {$b'$} (1.8,-0.9) node[right] {$b'$};
+
+    \draw[connect] (AcL2) -- node[above] {$c$} (X2);
+    \draw[connect] (X2)   -- node[above] {$d$} (AcR2);
+    \draw[connect] (AL2)  -- node[below] {$c'$} (X2);
+    \draw[connect] (X2)   -- node[below] {$d'$} (AR2);
+    \draw[connect] (AcL2) -- node[left] {$s$} (AL2);
+    \draw[connect] (AcR2) -- node[right] {$s$} (AR2);
+
+    \node at (0,-1.6) {$E^{\dagger}(X) = \sum_{s} \overline{A}^{s} X A^{s}$};
+    \draw[dashed] (-1.9,-1.2) rectangle (1.9,1.2);
+    \node[anchor=south east] at (1.9,1.2) {$E^{\dagger}$};
+  \end{scope}
+\end{tikzpicture}
+\end{document}
