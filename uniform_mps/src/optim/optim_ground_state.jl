@@ -71,18 +71,18 @@ function rdm_precondition(state, η)
     μ = 1.0e-2
     Afun = v -> begin
         @tensor term1[s, ; a, b] := rdm[a, c; b, d] * v[s, ; c, d]
-        term1 = twist(term1, 2)
+        term1 = twist(term1, filter(x -> isdual(space(term1, x)), allind(term1)))
         # term1 + μ * ad(A, ad_adj(A, v)) + λ * v
         term1 + λ * v
     end
 
     y, info = KrylovKit.linsolve(Afun, η;
-        maxiter=10,
-        # ishermitian=true,
-        # isposdef=true,
+        maxiter=5,
+        ishermitian=true,
+        isposdef=true,
     )
-    # if norm(y) < 0.1
-    #     y = proj_gauge(rdm, A, y)
-    # end
+    if norm(y) < 0.1
+        y = proj_gauge(rdm, A, y)
+    end
     return y
 end

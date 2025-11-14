@@ -62,9 +62,9 @@ version = "1.11.0"
 
 [[deps.BangBang]]
 deps = ["Accessors", "ConstructionBase", "InitialValues", "LinearAlgebra"]
-git-tree-sha1 = "26f41e1df02c330c4fa1e98d4aa2168fdafc9b1f"
+git-tree-sha1 = "a49f9342fc60c2a2aaa4e0934f06755464fcf438"
 uuid = "198e06fe-97b7-11e9-32a5-e1d131e6ad66"
-version = "0.4.4"
+version = "0.4.6"
 
     [deps.BangBang.extensions]
     BangBangChainRulesCoreExt = "ChainRulesCore"
@@ -207,9 +207,9 @@ version = "1.14.0"
 
 [[deps.ForwardDiff]]
 deps = ["CommonSubexpressions", "DiffResults", "DiffRules", "LinearAlgebra", "LogExpFunctions", "NaNMath", "Preferences", "Printf", "Random", "SpecialFunctions"]
-git-tree-sha1 = "dc41303865a16274ecb8450c220021ce1e0cf05f"
+git-tree-sha1 = "ba6ce081425d0afb2bedd00d9884464f764a9225"
 uuid = "f6369f11-7733-5829-9624-2563aa707210"
-version = "1.2.1"
+version = "1.2.2"
 
     [deps.ForwardDiff.extensions]
     ForwardDiffStaticArraysExt = "StaticArrays"
@@ -268,9 +268,9 @@ version = "0.1.17"
     Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [[deps.IrrationalConstants]]
-git-tree-sha1 = "e2222959fbc6c19554dc15174c81bf7bf3aa691c"
+git-tree-sha1 = "b2d91fe939cae05960e760110b328288867b5758"
 uuid = "92d709cd-6900-40b7-9082-c6be49f344b6"
-version = "0.2.4"
+version = "0.2.6"
 
 [[deps.IteratorInterfaceExtensions]]
 git-tree-sha1 = "a3f24677c21f5bbe9d2a714f95dcd58337fb2856"
@@ -290,9 +290,9 @@ version = "1.12.0"
 
 [[deps.KrylovKit]]
 deps = ["LinearAlgebra", "PackageExtensionCompat", "Printf", "Random", "VectorInterface"]
-git-tree-sha1 = "8f3b85e02445ee8800e80c38d43e00b3a3784954"
+git-tree-sha1 = "6dcba71deb016d646f1c1bcfcaacc764a198b8e6"
 uuid = "0b1a1467-8014-51b9-945f-bf0ae24f4b77"
-version = "0.10.1"
+version = "0.10.2"
 weakdeps = ["ChainRulesCore"]
 
     [deps.KrylovKit.extensions]
@@ -396,9 +396,9 @@ version = "0.5.6+0"
 
 [[deps.OptimKit]]
 deps = ["LinearAlgebra", "Printf", "ScopedValues", "VectorInterface"]
-git-tree-sha1 = "b0163ac202bc03aeb15f0e55002e544e74965534"
+git-tree-sha1 = "4af95d084c4c9ec9b68d3a6f698c0aa7a958d93f"
 uuid = "77e91f04-9b3b-57a6-a776-40b61faaebe0"
-version = "0.4.0"
+version = "0.4.1"
 
 [[deps.OrderedCollections]]
 git-tree-sha1 = "05868e21324cede2207c6f0f466b4bfef6d5e7ee"
@@ -506,9 +506,9 @@ uuid = "91464d47-22a1-43fe-8b7f-2d57ee82463f"
 version = "0.1.7"
 
 [[deps.StaticArraysCore]]
-git-tree-sha1 = "192954ef1208c7019899fbf8049e717f92959682"
+git-tree-sha1 = "6ab403037779dae8c514bad259f32a447262455a"
 uuid = "1e83bf80-4336-4d27-bf5d-d5a4f845583c"
-version = "1.4.3"
+version = "1.4.4"
 
 [[deps.Statistics]]
 deps = ["LinearAlgebra"]
@@ -542,9 +542,9 @@ version = "0.4.1"
 
 [[deps.StructArrays]]
 deps = ["ConstructionBase", "DataAPI", "Tables"]
-git-tree-sha1 = "8ad2e38cbb812e29348719cc63580ec1dfeb9de4"
+git-tree-sha1 = "a2c37d815bf00575332b7bd0389f771cb7987214"
 uuid = "09ab397b-f2b6-538f-b94a-2f83cf4a842a"
-version = "0.7.1"
+version = "0.7.2"
 
     [deps.StructArrays.extensions]
     StructArraysAdaptExt = "Adapt"
@@ -597,10 +597,10 @@ uuid = "ed4db957-447d-4319-bfb6-7fa9ae7ecf34"
 version = "0.1.3"
 
 [[deps.TensorKit]]
-deps = ["LRUCache", "LinearAlgebra", "MatrixAlgebraKit", "OhMyThreads", "PackageExtensionCompat", "Random", "ScopedValues", "Strided", "TensorKitSectors", "TensorOperations", "TupleTools", "VectorInterface"]
-git-tree-sha1 = "ea32e60398951aff85473204ecc22c9628620a1a"
+deps = ["LRUCache", "LinearAlgebra", "MatrixAlgebraKit", "OhMyThreads", "PackageExtensionCompat", "Printf", "Random", "ScopedValues", "Strided", "TensorKitSectors", "TensorOperations", "TupleTools", "VectorInterface"]
+git-tree-sha1 = "b577cc3f4c410a28843fa003a3e199aa3f32db0f"
 uuid = "07d1fe3e-3e46-537d-9eac-e9e13d0d4cec"
-version = "0.15.0"
+version = "0.15.3"
 
     [deps.TensorKit.extensions]
     TensorKitChainRulesCoreExt = "ChainRulesCore"
@@ -612,9 +612,9 @@ version = "0.15.0"
 
 [[deps.TensorKitSectors]]
 deps = ["HalfIntegers", "LinearAlgebra", "TensorOperations", "WignerSymbols"]
-git-tree-sha1 = "bc4b50aac07464de7de93ed7df933a8b93035ca2"
+git-tree-sha1 = "bd2a914caf6f5a7af6767ccb8bc0dc2ebd699d91"
 uuid = "13a9c161-d5da-41f0-bcbd-e1a08ae0647f"
-version = "0.2.1"
+version = "0.3.2"
 
 [[deps.TensorOperations]]
 deps = ["LRUCache", "LinearAlgebra", "PackageExtensionCompat", "PrecompileTools", "Preferences", "PtrArrays", "Strided", "StridedViews", "TupleTools", "VectorInterface"]

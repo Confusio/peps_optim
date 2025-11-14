@@ -38,13 +38,17 @@ end
 function ad_adj(A::TensorMap, W::TensorMap)
     @tensor term1[k; a] := conj(A[s, k, b]) * W[s, ; a, b]
     @tensor term2[b; k] := conj(A[s, a, k]) * W[s, ; a, b]
-    return term1 - term2
+    term = term1 - term2
+    term = twist(term, filter(x -> isdual(space(term, x)), allind(term)))
+    return term
 end
 
 function ad_adj(rdm::TensorMap, A::TensorMap, W::TensorMap)
     @tensor term1[k; a] := conj(A[s, k, b]) * W[s, ; c, d] * rdm[a, c; b, d]
     @tensor term2[b; k] := conj(A[s, a, k]) * W[s, ; c, d] * rdm[a, c; b, d]
-    return term1 - term2
+    term = term1 - term2
+    term = twist(term, filter(x -> isdual(space(term, x)), allind(term)))
+    return term
 end
 
 struct GaugeProjStats
@@ -67,7 +71,7 @@ _bond_norm(rdm, W) = begin
 end
 
 function proj_gauge(rdm::TensorMap, A::TensorMap, G::TensorMap;
-    λ_reg::Real=1.0e-4, tol::Real=1.0e-6, maxiter::Int=100,
+    λ_reg::Real=1.0e-6, tol::Real=1.0e-6, maxiter::Int=5,
     logstats::Bool=false, return_stats::Bool=false)
 
     rhs = ad_adj(rdm, A, G)
@@ -78,16 +82,15 @@ function proj_gauge(rdm::TensorMap, A::TensorMap, G::TensorMap;
         return return_stats ? (projected, stats) : projected
     end
 
-    Aop = Z -> ad_adj(rdm, A, ad(A, Z))
-    #  + λ_reg * Z
+    Aop = Z -> ad_adj(rdm, A, ad(A, Z)) + λ_reg * Z
     vec, info = KrylovKit.linsolve(
         Aop,
         rhs;
-        rtol=tol,
-        atol=0.0,
+        # rtol=tol,
+        # atol=0.0,
         maxiter=maxiter,
-        # isposdef=true,
-        # ishermitian=true,
+        isposdef=true,
+        ishermitian=true,
     )
 
     B = G - ad(A, vec)
