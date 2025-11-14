@@ -20,8 +20,8 @@ function fixedpoints(A::TensorMap, Aconj::TensorMap)
     op_l = X -> transfer_backward(A, Aconj, X)
 
     T = scalartype(A)
-    _, vecs_r, _ = KrylovKit.eigsolve(op_r, ones(T, WL, WL), 1, :LM)
-    _, vecs_l, _ = KrylovKit.eigsolve(op_l, ones(T, WR, WR), 1, :LM)
+    _, vecs_r, _ = KrylovKit.eigsolve(op_r, randn(T, WL, WL), 1, :LR)
+    _, vecs_l, _ = KrylovKit.eigsolve(op_l, randn(T, WR, WR), 1, :LR)
 
     r = vecs_r[1]
     l = vecs_l[1]

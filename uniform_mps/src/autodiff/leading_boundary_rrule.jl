@@ -39,7 +39,7 @@ function ChainRulesCore.rrule(::typeof(leading_boundary), env::EnvMPS, A::Tensor
             y_env - Jy_env
         end
 
-        y_env, _ = KrylovKit.linsolve(lin_op, Δ_env)
+        y_env, _ = KrylovKit.linsolve(lin_op, Δ_env; rtol=1.0e-12, atol=0.0)
         _, gA, gAconj = vjp(y_env)
         return ChainRulesCore.NoTangent(),
         ChainRulesCore.zero_tangent(env),

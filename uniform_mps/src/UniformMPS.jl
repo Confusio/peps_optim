@@ -20,6 +20,7 @@ export P, WL, WR,
     leading_boundary, fixedpoints,
     spin1_ops, two_site_h, energy_density,
     obj_and_grad, optimize_lbfgs, set_momentum_leading_boundary_scaling!,
+    space_config, set_space_config!,
     regular, GaugeProjStats
 
 

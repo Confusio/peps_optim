@@ -78,7 +78,8 @@ function proj_gauge(rdm::TensorMap, A::TensorMap, G::TensorMap;
         return return_stats ? (projected, stats) : projected
     end
 
-    Aop = Z -> ad_adj(rdm, A, ad(A, Z)) + λ_reg * Z
+    Aop = Z -> ad_adj(rdm, A, ad(A, Z))
+    #  + λ_reg * Z
     vec, info = KrylovKit.linsolve(
         Aop,
         rhs;

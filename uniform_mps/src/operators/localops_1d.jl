@@ -11,6 +11,7 @@ end
 function two_site_h(; J::Real=1.0)
     Sx, Sy, Sz = spin1_ops()
     h_mat = J * (kron(Sx, Sx) + kron(Sy, Sy) + kron(Sz, Sz))
+    P = ComplexSpace(3)
     TensorMap(h_mat, P ⊗ P, P ⊗ P)
 end
 
