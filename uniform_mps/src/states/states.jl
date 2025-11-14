@@ -1,7 +1,33 @@
 const C = ComplexF64
-const P = ComplexSpace(3)
-const WR = ComplexSpace(30)
-const WL = dual(WR)
+
+P = ComplexSpace(3)
+WR = ComplexSpace(30)
+WL = dual(WR)
+
+"""Return the current tuple of (P, WR, WL)."""
+space_config() = (P=P, WR=WR, WL=WL)
+
+"""Configure global physical/bond spaces used throughout UniformMPS.
+
+You can pass either explicit spaces (`P_space`, `WR_space`, `WL_space`) or
+convenience dimensions (`phys_dim`, `bond_dim`). When only `bond_dim` is
+provided, `WL` is automatically set to `dual(WR)` unless overridden.
+"""
+function set_space_config!(; P_space=nothing,
+    WR_space=nothing,
+    WL_space=nothing,
+    phys_dim::Union{Nothing,Int}=nothing,
+    bond_dim::Union{Nothing,Int}=nothing)
+    P_new = isnothing(P_space) ? (isnothing(phys_dim) ? P : ComplexSpace(phys_dim)) : P_space
+    WR_new = isnothing(WR_space) ? (isnothing(bond_dim) ? WR : ComplexSpace(bond_dim)) : WR_space
+    WL_new = isnothing(WL_space) ? dual(WR_new) : WL_space
+
+    global P = P_new
+    global WR = WR_new
+    global WL = WL_new
+
+    return space_config()
+end
 
 """规范相关：对易子与规范投影。"""
 function ad(A::TensorMap, Z::TensorMap)
@@ -59,8 +85,8 @@ function proj_gauge(rdm::TensorMap, A::TensorMap, G::TensorMap;
         rtol=tol,
         atol=0.0,
         maxiter=maxiter,
-        isposdef=true,
-        ishermitian=true,
+        # isposdef=true,
+        # ishermitian=true,
     )
 
     B = G - ad(A, vec)

@@ -67,8 +67,8 @@ function rdm_precondition(state, η)
     end
     A, env = state
     rdm = reduced_density_matrix(env, A, A)
-    λ = 1.0e-12
-    μ = 0.0e-2
+    λ = 1.0e-6
+    μ = 1.0e-2
     Afun = v -> begin
         @tensor term1[s, ; a, b] := rdm[a, c; b, d] * v[s, ; c, d]
 
@@ -78,9 +78,11 @@ function rdm_precondition(state, η)
 
     y, info = KrylovKit.linsolve(Afun, η;
         maxiter=5,
-        ishermitian=true,
-        isposdef=true,
+        # ishermitian=true,
+        # isposdef=true,
     )
-
+    # if norm(y) < 0.1
+    #     y = proj_gauge(rdm, A, y)
+    # end
     return y
 end
