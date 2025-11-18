@@ -81,8 +81,8 @@ function rdm_precondition(state, η)
         ishermitian=true,
         isposdef=true,
     )
-    if norm(y) < 0.1
-        y = proj_gauge(rdm, A, y)
-    end
+    # if norm(y) < 1.0
+    y = proj_gauge(rdm, A, y)
+    # end
     return y
 end

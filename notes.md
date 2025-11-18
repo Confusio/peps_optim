@@ -440,6 +440,11 @@ x_opt, fx, info = OptimKit.optimize(cost, grad!, retract, inner, A0;
 
 ### 数学表述（bond/FS 口径）
 
+在去规范中，我们希望
+\[
+  norm(G-[A,Z])
+\]
+最小.
 记 `⟨X, Y⟩_bond = ∑_s Tr(X^{s†} l · Y^s r)`，其中 `rdm[a,c;b,d] = r[a;b] l[c;d] / λ`。
 
 1. **去纯规范**：求解正规方程（SPD）
@@ -526,4 +531,48 @@ end
 
 **TL;DR**：`proj_gauge = (去纯规范) + (去射线)`；配合上述测试，即可取得稳定的物理水平向量。
 
+# 固定点方程
+\[
+\mathrm{env}^* = f(\mathrm{env}^*, A, A^†),
+\]
+隐式微分得到
+\[
+(I - J_{\mathrm{env}}), d\mathrm{env}
+= J_A, dA.
+\]
+
+在反向模式中，设上游传来的梯度为
+\[
+\Delta_{\mathrm{env}}
+= \frac{\partial \mathcal{L}}{\partial \mathrm{env}},
+\]
+我们希望计算
+\[
+\frac{\partial \mathcal{L}}{\partial A}
+= \Delta_{\mathrm{env}}^{\mathsf T}(I - J_{\mathrm{env}})^{-1} J_A .
+\]
+
+为了避免显式求逆，引入伴随变量 (y)，令
+\[
+(I - J_{\mathrm{env}}^{\mathsf T}), y
+= \Delta_{\mathrm{env}}.
+\]
+
+则
+\[
+\Delta_{\mathrm{env}}^{\mathsf T}(I - J_{\mathrm{env}})^{-1}
+= y^{\mathsf T}.
+\]
+
+于是梯度变为
+\[
+\frac{\partial \mathcal{L}}{\partial A}
+= y^{\mathsf T} J_A.
+\]
+
+这样就把“求逆大算子”的难题转化为**解一个线性方程**
+\[
+(I - J_{\mathrm{env}}^{\mathsf T}), y = \Delta_{\mathrm{env}},
+\]
+随后只需再做一次向量–Jacobian 乘积（`vjp(y)`），即可得到对 (A) 的梯度。
 

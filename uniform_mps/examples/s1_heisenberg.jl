@@ -13,8 +13,10 @@ end
 using UniformMPS
 using TensorKit, Serialization, LinearAlgebra
 
+Pspace = ComplexSpace(3)
+WR = ComplexSpace(30)
 # 构造随机 A :: TensorMap(P ← W_R ⊗ W_L)
-A0 = TensorMap(randn, ComplexF64, P, WR ⊗ WL)
+A0 = TensorMap(randn, ComplexF64, Pspace, WR ⊗ WR')
 serialize("A_fs.bin", A0)
 
 h = two_site_h(J=1.0)
